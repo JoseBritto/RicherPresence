@@ -291,6 +291,16 @@ namespace RicherPresence
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+           // Hide();
+        }
+
+        private void ShowButton_Click(object sender, EventArgs e)
+        {
+            Show();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
             try
             {
                 var presence = GetPresence();
@@ -304,7 +314,7 @@ namespace RicherPresence
 
                 var json = JsonConvert.SerializeObject(save, Formatting.Indented);
 
-                
+
                 File.WriteAllText("data.json", json);
 
             }
@@ -317,7 +327,15 @@ namespace RicherPresence
 
                 client = null;
             }
-           
+            this.Close();
+            Application.Exit();
+            Environment.Exit(0);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 

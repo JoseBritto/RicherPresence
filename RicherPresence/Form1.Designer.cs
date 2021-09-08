@@ -30,6 +30,7 @@ namespace RicherPresence
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Details = new System.Windows.Forms.Label();
             this.DetailsTextBox = new System.Windows.Forms.TextBox();
             this.SmallText = new System.Windows.Forms.Label();
@@ -59,6 +60,9 @@ namespace RicherPresence
             this.SaveDiag = new System.Windows.Forms.SaveFileDialog();
             this.NotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.TrayContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // Details
@@ -277,14 +281,33 @@ namespace RicherPresence
             // NotifyIcon
             // 
             this.NotifyIcon.ContextMenuStrip = this.TrayContextMenu;
-            this.NotifyIcon.Text = "NotifyIcon";
+            this.NotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("NotifyIcon.Icon")));
+            this.NotifyIcon.Text = "Richer Presence";
             this.NotifyIcon.Visible = true;
             // 
             // TrayContextMenu
             // 
             this.TrayContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.TrayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowButton,
+            this.ExitButton});
             this.TrayContextMenu.Name = "TrayContextMenu";
-            this.TrayContextMenu.Size = new System.Drawing.Size(61, 4);
+            this.TrayContextMenu.Size = new System.Drawing.Size(115, 52);
+            // 
+            // ShowButton
+            // 
+            this.ShowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ShowButton.Name = "ShowButton";
+            this.ShowButton.Size = new System.Drawing.Size(114, 24);
+            this.ShowButton.Text = "Show";
+            this.ShowButton.Click += new System.EventHandler(this.ShowButton_Click);
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(114, 24);
+            this.ExitButton.Text = "Exit";
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // Form1
             // 
@@ -317,11 +340,14 @@ namespace RicherPresence
             this.Controls.Add(this.DetailsTextBox);
             this.Controls.Add(this.Details);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "RicherPresence";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.TrayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,6 +384,8 @@ namespace RicherPresence
         private System.Windows.Forms.SaveFileDialog SaveDiag;
         private System.Windows.Forms.NotifyIcon NotifyIcon;
         private System.Windows.Forms.ContextMenuStrip TrayContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem ShowButton;
+        private System.Windows.Forms.ToolStripMenuItem ExitButton;
     }
 }
 
