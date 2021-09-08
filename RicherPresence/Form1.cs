@@ -329,7 +329,6 @@ namespace RicherPresence
 
                 client = null;
             }
-            this.Close();
             Application.Exit();
             Environment.Exit(0);
         }
