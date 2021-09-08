@@ -2,7 +2,7 @@
 Yet another Discord Rich Presence Client
 
 # Quick Start
-1. First you need to create an application on discord's [developer portal](https://discord.com/developers/applications)   <a href="https://discord.com/developers/applications" target="_blank">developer portal</a>
+1. First you need to create an application on discord's [developer portal](https://discord.com/developers/applications)
 
 2. Give it a good name.
 
