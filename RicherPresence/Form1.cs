@@ -17,6 +17,9 @@ namespace RicherPresence
     public partial class Form1 : Form
     {
         DiscordRpcClient client;
+
+        bool isExiting = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +39,7 @@ namespace RicherPresence
             SaveDiag.Filter = "Json Files|*.json";
             SaveDiag.AddExtension = true;
 
+            Application.ApplicationExit += Application_ApplicationExit;
             
             try
             {
@@ -47,7 +51,10 @@ namespace RicherPresence
                 var save = JsonConvert.DeserializeObject<SaveData>(json);
 
                 ClientIdTextBox.Text = save.cid;
-
+                
+                if (save.RichPresence == null)
+                    return;
+                
                 DetailsTextBox.Text = save.RichPresence.Details;
 
                 StateTextBox.Text = save.RichPresence.State;
@@ -81,6 +88,12 @@ namespace RicherPresence
             {
                 Log($"ERROR: {ex.Message}");
             }
+        }
+
+        private void Application_ApplicationExit(object sender, EventArgs e)
+        {
+            
+
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
@@ -209,8 +222,7 @@ namespace RicherPresence
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var res = OpenDiag.ShowDialog();
-            
+            OpenDiag.ShowDialog();            
         }
 
         private void OpenDiag_FileOk(object sender, CancelEventArgs e)
@@ -291,7 +303,7 @@ namespace RicherPresence
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-           // Hide();
+           
         }
 
         private void ShowButton_Click(object sender, EventArgs e)
@@ -301,21 +313,27 @@ namespace RicherPresence
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            isExiting = true;
+            Application.Exit();
+            Environment.Exit(0);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
             try
             {
                 var presence = GetPresence();
 
-                if (presence == null)
+                if (presence != null || !string.IsNullOrWhiteSpace(ClientId.Text))
                 {
-                    Dispose();
-                    return;
+                    var save = new SaveData { cid = ClientIdTextBox.Text, RichPresence = presence };
+
+                    var json = JsonConvert.SerializeObject(save, Formatting.Indented);
+
+
+                    File.WriteAllText("data.json", json);
+
                 }
-                var save = new SaveData { cid = ClientIdTextBox.Text, RichPresence = presence };
-
-                var json = JsonConvert.SerializeObject(save, Formatting.Indented);
-
-
-                File.WriteAllText("data.json", json);
 
                 Dispose();
 
@@ -329,12 +347,10 @@ namespace RicherPresence
 
                 client = null;
             }
-            Application.Exit();
-            Environment.Exit(0);
-        }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
+            if (isExiting)
+                return;
+
             e.Cancel = true;
             Hide();
         }
