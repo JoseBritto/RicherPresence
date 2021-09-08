@@ -314,6 +314,7 @@ namespace RicherPresence
         private void ExitButton_Click(object sender, EventArgs e)
         {
             isExiting = true;
+            DisposeClient();
             Application.Exit();
             Environment.Exit(0);
         }
@@ -335,25 +336,25 @@ namespace RicherPresence
 
                 }
 
-                Dispose();
-
             }
             catch { }
 
-            void Dispose()
-            {
-                if (client != null)
-                    client.Dispose();
-
-                client = null;
-            }
-
+           
             if (isExiting)
                 return;
 
             e.Cancel = true;
             Hide();
         }
+
+        void DisposeClient()
+        {
+            if (client != null)
+                client.Dispose();
+
+            client = null;
+        }
+
     }
 
     public class SaveData
