@@ -16,7 +16,7 @@ Yet another Discord Rich Presence Client
 
 5. Now if you reload the page you will see that the images have disappeared. Don't worry, discord is processing them. This usually takes around 20 minutes. So wait for 20 minutes and reload the page to them again.
 
-> While you wait download [RicherPresence]() and [.Net 5](https://dotnet.microsoft.com/download/dotnet/5.0/runtime) if you don't have it installed.
+> While you wait download [RicherPresence](https://github.com/JoseBritto/RicherPresence/releases) and [.Net 5](https://dotnet.microsoft.com/download/dotnet/5.0/runtime) if you don't have it installed.
 
 6. After the images are done processing. You can move on to the visualizer tab. Here you can see a preview of what others might see on your profile.
 
