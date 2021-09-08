@@ -317,6 +317,8 @@ namespace RicherPresence
 
                 File.WriteAllText("data.json", json);
 
+                Dispose();
+
             }
             catch { }
 
